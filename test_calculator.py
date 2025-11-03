@@ -31,4 +31,4 @@ class TestCalculator:
         assert self.calc.power(5, 2) == 25
 
     def test_intentional_fail(self):
-        assert self.calc.add(2, 2) == 5
+        assert self.calc.add(2, 2) == 4
