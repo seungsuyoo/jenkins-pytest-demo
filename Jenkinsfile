@@ -14,8 +14,6 @@ pipeline {
         echo '환경을 설정합니다'
         sh '''
         python3 -m venv venv
-        . venv/bin/activate
-        pip install -r requirements.txt
         '''
       }
     }
