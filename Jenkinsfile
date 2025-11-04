@@ -1,7 +1,19 @@
 pipeline {
   agent any
 
+  environment {
+    PROJECT_NAME = 'pytest-demo'
+    TEST_BROWSER = 'chrome'
+  }
+
   stages {
+    stage('환경 정보') {
+      steps {
+        echo "프로젝트: ${PROJECT_NAME}"
+        echo "테스트 브라우저: ${TEST_BROWSER}"
+      }
+    }
+
     stage('Checkout') {
       steps {
         echo '코드를 가져옵니다'
