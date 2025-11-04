@@ -49,6 +49,43 @@ pipeline {
         '''
       }
     }
+
+    stage('Deploy') {
+      when {
+        anyOf {
+          branch 'main'
+          branch 'develop'
+        }
+      }
+
+      steps {
+        echo '메인 브랜치에서만 실행됩니다'
+      }
+    }
+
+    stage('병렬 테스트') {
+      parallel {
+        stage('Unit Tests') {
+          steps {
+            echo 'Unit 테스트 실행 중...'
+            sh '''
+            . venv/bin/activate
+            pytest test_calculator.py -v --junit-xml=unit-results.xml
+            '''
+          }
+        }
+
+        stage('Integration Tests') {
+          steps {
+            echo 'Integration 테스트 실행 중...'
+            sh '''
+            . venv/bin/activate
+            pytest test_web.py -v --junit-xml=integration-results.xml
+            '''
+          }
+        }
+      }
+    }
   }
 
   post {
